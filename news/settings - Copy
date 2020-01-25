@@ -1,0 +1,304 @@
+<?php
+
+/**
+ * @internal never define functions inside callbacks.
+ * these functions could be run multiple times; this would result in a fatal error.
+ */
+
+/* News Setting Settings Page */
+class newssetting_Settings_Page {
+	public function __construct() {
+		add_action( 'admin_menu', array( $this, 'wph_create_settings' ) );
+		add_action( 'admin_init', array( $this, 'wph_setup_sections' ) );
+		add_action( 'admin_init', array( $this, 'wph_setup_fields' ) );
+	}
+	public function wph_create_settings() {
+		$parent_slug = 'edit.php?post_type=arnews';
+		$page_title = 'News Setting';
+		$menu_title = 'News Setting';
+		$capability = 'manage_options';
+
+		$menu_slug = 'newssetting';
+		$callback = array($this, 'wph_settings_content');
+		//add_posts_page($page_title, $menu_title, $capability, $slug, $callback);
+		add_submenu_page( $parent_slug, $page_title, $menu_title, $capability, $menu_slug, $callback );
+	}
+	public function wph_settings_content() { ?>
+		<div class="wrap">
+			<h1>News Setting</h1>
+			<?php settings_errors(); ?>
+			<form method="POST" action="options.php">
+				<?php
+					settings_fields( 'newssetting' );
+					do_settings_sections( 'newssetting' );
+
+					// settings_fields( 'newssetting' );
+					// do_settings_sections( '$page' );
+
+					submit_button();
+				?>
+			</form>
+		</div> <?php
+	}
+	public function wph_setup_sections() {
+		add_settings_section( 'newssetting_section', 'Body Styling', array(), 'newssetting' );
+	}
+	public function wph_setup_fields() {
+		$fields = array(
+			array(
+				'label' => 'Font Size',
+				'id' => 'news-fs',
+				'type' => 'text',
+				'section' => 'newssetting_section',
+				'placeholder' => 'Ex 16px ',
+			),
+			array(
+				'label' => 'Line Height',
+				'id' => 'news-lh',
+				'type' => 'text',
+				'section' => 'newssetting_section',
+				'placeholder' => 'Ex 24px ',
+			),
+			array(
+				'label' => 'Text Align',
+				'id' => 'newsta',
+				'type' => 'select',
+				'section' => 'newssetting_section',
+				'options' => array(
+					'' => '',
+					'Inherit' => 'Inherit',
+					'Left' => 'Left',
+					'Center' => 'Center',
+					'Right' => 'Right',
+					'Justify' => 'Justify',
+					'Initial' => 'Initial',
+				),
+			),
+			array(
+				'label' => 'Font Weight',
+				'id' => 'newsfw',
+				'type' => 'select',
+				'section' => 'newssetting_section',
+				'options' => array(
+					'Light 300' => 'Light 300',
+					'Normal 400' => 'Normal 400',
+					'Meduim 500' => 'Meduim 500',
+					'Semi Bold 600' => 'Semi Bold 600',
+					'Bold 700' => 'Bold 700',
+					'Black 900' => 'Black 900',
+				),
+			),
+			array(
+				'label' => 'Color',
+				'id' => 'newscolor',
+				'type' => 'color',
+				'section' => 'newssetting_section',
+			),
+			array(
+				'label' => 'Measurements',
+				'id' => 'newspd',
+				'type' => 'text',
+				'section' => 'newssetting_section',
+				'placeholder' => 'Body Padding',
+			),
+			array(
+				'label' => 'Border',
+				'id' => 'newsbrd',
+				'type' => 'text',
+				'section' => 'newssetting_section',
+				'placeholder' => 'Border Width',
+			),
+		);
+		foreach( $fields as $field ){
+			add_settings_field( $field['id'], $field['label'], array( $this, 'wph_field_callback' ), 'newssetting', $field['section'], $field );
+			register_setting( 'newssetting', $field['id'] );
+		}
+	}
+	public function wph_field_callback( $field ) {
+		$value = get_option( $field['id'] );
+		switch ( $field['type'] ) {
+				case 'select':
+				case 'multiselect':
+					if( ! empty ( $field['options'] ) && is_array( $field['options'] ) ) {
+						$attr = '';
+						$options = '';
+						foreach( $field['options'] as $key => $label ) {
+							$options.= sprintf('<option value="%s" %s>%s</option>',
+								$key,
+								selected($value[array_search($key, $value, true)], $key, false),
+								$label
+							);
+						}
+						if( $field['type'] === 'multiselect' ){
+							$attr = ' multiple="multiple" ';
+						}
+						printf( '<select name="%1$s[]" id="%1$s" %2$s>%3$s</select>',
+							$field['id'],
+							$attr,
+							$options
+						);
+					}
+					break;
+			default:
+				printf( '<input name="%1$s" id="%1$s" type="%2$s" placeholder="%3$s" value="%4$s" />',
+					$field['id'],
+					$field['type'],
+					$field['placeholder'],
+					$value
+				);
+		}
+		if( $desc = $field['desc'] ) {
+			printf( '<p class="description">%s </p>', $desc );
+		}
+	}
+
+
+
+	// heading Style
+
+	public function __construct() {
+		add_action( 'admin_menu', array( $this, 'wph_create_settings' ) );
+		add_action( 'admin_init', array( $this, 'wph_setup_sections' ) );
+		add_action( 'admin_init', array( $this, 'wph_setup_fields' ) );
+	}
+	public function wph_create_settings() {
+		$parent_slug = 'edit.php?post_type=arnews';
+		$page_title = 'News Setting';
+		$menu_title = 'News Setting';
+		$capability = 'manage_options';
+
+		$menu_slug = 'newssetting';
+		$callback = array($this, 'wph_settings_content');
+		//add_posts_page($page_title, $menu_title, $capability, $slug, $callback);
+		add_submenu_page( $parent_slug, $page_title, $menu_title, $capability, $menu_slug, $callback );
+	}
+	public function wph_settings_content() { ?>
+		<div class="wrap">
+			<h1>News Setting</h1>
+			<?php settings_errors(); ?>
+			<form method="POST" action="options.php">
+				<?php
+					settings_fields( 'newssetting' );
+					do_settings_sections( 'newssetting' );
+
+					// settings_fields( 'newssetting' );
+					// do_settings_sections( '$page' );
+
+					submit_button();
+				?>
+			</form>
+		</div> <?php
+	}
+	public function wph_setup_sections() {
+		add_settings_section( 'newssetting_section', 'Body Styling', array(), 'newssetting' );
+	}
+	public function wph_setup_fields() {
+		$fields = array(
+			array(
+				'label' => 'Font Size',
+				'id' => 'news-fs',
+				'type' => 'text',
+				'section' => 'newssetting_section',
+				'placeholder' => 'Ex 16px ',
+			),
+			array(
+				'label' => 'Line Height',
+				'id' => 'news-lh',
+				'type' => 'text',
+				'section' => 'newssetting_section',
+				'placeholder' => 'Ex 24px ',
+			),
+			array(
+				'label' => 'Text Align',
+				'id' => 'newsta',
+				'type' => 'select',
+				'section' => 'newssetting_section',
+				'options' => array(
+					'' => '',
+					'Inherit' => 'Inherit',
+					'Left' => 'Left',
+					'Center' => 'Center',
+					'Right' => 'Right',
+					'Justify' => 'Justify',
+					'Initial' => 'Initial',
+				),
+			),
+			array(
+				'label' => 'Font Weight',
+				'id' => 'newsfw',
+				'type' => 'select',
+				'section' => 'newssetting_section',
+				'options' => array(
+					'Light 300' => 'Light 300',
+					'Normal 400' => 'Normal 400',
+					'Meduim 500' => 'Meduim 500',
+					'Semi Bold 600' => 'Semi Bold 600',
+					'Bold 700' => 'Bold 700',
+					'Black 900' => 'Black 900',
+				),
+			),
+			array(
+				'label' => 'Color',
+				'id' => 'newscolor',
+				'type' => 'color',
+				'section' => 'newssetting_section',
+			),
+			array(
+				'label' => 'Measurements',
+				'id' => 'newspd',
+				'type' => 'text',
+				'section' => 'newssetting_section',
+				'placeholder' => 'Body Padding',
+			),
+			array(
+				'label' => 'Border',
+				'id' => 'newsbrd',
+				'type' => 'text',
+				'section' => 'newssetting_section',
+				'placeholder' => 'Border Width',
+			),
+		);
+		foreach( $fields as $field ){
+			add_settings_field( $field['id'], $field['label'], array( $this, 'wph_field_callback' ), 'newssetting', $field['section'], $field );
+			register_setting( 'newssetting', $field['id'] );
+		}
+	}
+	public function wph_field_callback( $field ) {
+		$value = get_option( $field['id'] );
+		switch ( $field['type'] ) {
+				case 'select':
+				case 'multiselect':
+					if( ! empty ( $field['options'] ) && is_array( $field['options'] ) ) {
+						$attr = '';
+						$options = '';
+						foreach( $field['options'] as $key => $label ) {
+							$options.= sprintf('<option value="%s" %s>%s</option>',
+								$key,
+								selected($value[array_search($key, $value, true)], $key, false),
+								$label
+							);
+						}
+						if( $field['type'] === 'multiselect' ){
+							$attr = ' multiple="multiple" ';
+						}
+						printf( '<select name="%1$s[]" id="%1$s" %2$s>%3$s</select>',
+							$field['id'],
+							$attr,
+							$options
+						);
+					}
+					break;
+			default:
+				printf( '<input name="%1$s" id="%1$s" type="%2$s" placeholder="%3$s" value="%4$s" />',
+					$field['id'],
+					$field['type'],
+					$field['placeholder'],
+					$value
+				);
+		}
+		if( $desc = $field['desc'] ) {
+			printf( '<p class="description">%s </p>', $desc );
+		}
+	}
+}
+new newssetting_Settings_Page();
