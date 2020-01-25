@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="et_pb_row our-campaign-row">
+    <div class="et_pb_column et_pb_column_1_3  et_pb_css_mix_blend_mode_passthrough">
+        <div class="et_pb_module et_pb_image">
+            <span class="et_pb_image_wrap "><img
+                    src="https://stuartt1.sg-host.com/wp-content/uploads/2019/08/car.jpg"
+                    srcset="https://stuartt1.sg-host.com/wp-content/uploads/2019/08/car.jpg 640w, https://stuartt1.sg-host.com/wp-content/uploads/2019/08/car-480x300.jpg 480w"  sizes="((min-width: 0px) and (max-width: 480px)) 480px, (min-width: 481px) 640px, 100vw"></span>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+        <div class="et_pb_module et_pb_text et_pb_bg_layout_light  et_pb_text_align_left et_had_animation"
+             style="">
+            <div class="et_pb_text_inner"><h3 style="text-align: center;">Water for Africa</h3></div>
+        </div> <!-- .et_pb_text -->
+        <div class="et_pb_module et_pb_text et_pb_bg_layout_light  et_pb_text_align_left et_had_animation"
+             style="">
+            <div class="et_pb_text_inner"><p style="text-align: center;">Lorem ipsum dolor sit amet, consectetur
+                adipiscing elit, sed do eiusmod tempor incididunt.</p></div>
+        </div> <!-- .et_pb_text -->
+        <div class="et_pb_button_module_wrapper  et_pb_module ">
+            <a class="et_pb_button et_pb_custom_button_icon et_pb_bg_layout_light" href="/donate"
+               data-icon="">Donate</a>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>
+
+
+
+
+<?php
+function cptui_register_my_cpts_campaign() {
+
+	$labels = array(
+		"name" => __( "Campaigns", "custom-post-type-ui" ),
+"singular_name" => __( "Campaign", "custom-post-type-ui" ),
+);
+
+$args = array(
+"label" => __( "Campaigns", "custom-post-type-ui" ),
+"labels" => $labels,
+"description" => "",
+"public" => true,
+"publicly_queryable" => true,
+"show_ui" => true,
+"delete_with_user" => false,
+"show_in_rest" => true,
+"rest_base" => "",
+"rest_controller_class" => "WP_REST_Posts_Controller",
+"has_archive" => false,
+"show_in_menu" => true,
+"show_in_nav_menus" => true,
+"exclude_from_search" => false,
+"capability_type" => "post",
+"map_meta_cap" => true,
+"hierarchical" => false,
+"rewrite" => array( "slug" => "campaign", "with_front" => true ),
+"query_var" => true,
+"supports" => array( "title", "editor", "thumbnail" ),
+"taxonomies" => array( "post_tag" ),
+);
+
+register_post_type( "campaign", $args );
+}
+
+add_action( 'init', 'cptui_register_my_cpts_campaign' );
+
+
+
+
+
+
+
+
+
+
+
+
+

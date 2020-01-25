@@ -1,0 +1,17 @@
+{
+	"name": "anisur.belocal.today/oop-wp-plugin",
+	"description": "Awesome starter plugin example",
+	"type": "project",
+	"license": "GPL",
+	"authors": [
+		{
+			"name": "oop-wp-plugin",
+			"email": "anisurrahmananisr@gmail.com"
+		}
+	],
+	"minimum-stability": "dev",
+	"require": {},
+	"autoload": {
+		"psr-4": {"Inc\\": "./inc"}
+	}
+}

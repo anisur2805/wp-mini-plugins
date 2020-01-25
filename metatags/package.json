@@ -1,0 +1,36 @@
+{
+  "name": "metatags",
+  "version": "1.0.0",
+  "description": "Simple WordPress SEO plugin.",
+  "author": {
+    "name": "anisur2805",
+    "email": "anisur2805@gmail.com",
+    "url": "anisur2805@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/anisur2805/metatags"
+  },
+  "license": "MIT",
+  "main": "index.js",
+  "scripts": {
+    "dev": "SET NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "watch": "SET NODE_ENV=development node_modules/webpack/bin/webpack.js --watch --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "production": "SET NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
+  },
+  "keywords": [
+    "Seo",
+    "Wordpress",
+    "Plugin"
+  ],
+  "devDependencies": {
+    "@babel/preset-react": "^7.0.0",
+    "copy-webpack-plugin": "^4.6.0",
+    "cssnext": "^1.8.4",
+    "laravel-mix": "^4.1.4",
+    "purecss": "^1.0.0",
+    "sass": "^1.23.7",
+    "sass-loader": "^7.3.1",
+    "source-map": "^0.7.3"
+  }
+}

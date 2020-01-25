@@ -1,0 +1,1 @@
+alert('Content of metatags.js in scr/ is been copied to the dist/ directory.')

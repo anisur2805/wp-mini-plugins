@@ -1,0 +1,41 @@
+#artm_amb h2.hndle{
+	background: #e8eaea;
+}
+.row {
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+
+	justify-content: space-between;
+}
+.oneHalf {
+	display: -webkit-inline-flex;
+	display: -moz-inline-flex;
+	display: -ms-inline-flex;
+	display: -o-inline-flex;
+	display: inline-flex;
+
+	margin-top: 10px;
+	width: 49%;
+	-webkit-flex-direction: column;
+	-moz-flex-direction: column;
+	-ms-flex-direction: column;
+	-o-flex-direction: column;
+	flex-direction: column;
+}
+.oneHalf.first, .oneHalf.last {
+	margin-top: 0;
+}
+.oneHalf label {
+	margin-bottom: 5px;
+}
+.oneHalf select{
+	margin-bottom: 0;
+	line-height: 33px;
+    height: 33px;
+}
+.oneHalf input, .oneHalf select {
+	padding: 6px 10px;
+}

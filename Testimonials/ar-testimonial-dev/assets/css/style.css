@@ -1,0 +1,16 @@
+.post-news {
+/*	max-width: 1170px;
+	margin: auto;*/
+}
+h3.title {
+	color: #f00;
+}
+
+.next_previous {
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	justify-content: space-around;
+}

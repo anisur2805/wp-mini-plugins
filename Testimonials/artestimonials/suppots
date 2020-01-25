@@ -1,0 +1,124 @@
+// Activation Hook
+/*
+* In Future will redirect this to Plugin Own admin 
+*/
+
+// function artest_setup_post_type(){
+// 	register_post_type( 'testimonial', ['public'	=> true ] );
+// }
+// add_action( 'init', 'artest_setup_post_type');
+
+// function artest_install() {
+//     artest_setup_post_type();
+
+//     flush_rewrite_rules();
+// }
+// register_activation_hook( __FILE__, 'artest_install' );
+
+
+// function artest_deactivation() {
+//     unregister_post_type( 'testimonial' );
+//     flush_rewrite_rules();
+// }
+// register_deactivation_hook( __FILE__, 'artest_deactivation' );
+
+
+// Rating
+// if($atts['client_rat']):
+				if(  !empty('client_rat')):
+					$client_rat = get_post_meta( get_the_ID(), 'client_rat', true );
+					$html .= '<p>';
+						if(get_custom_field('client_rat')==1) {
+							$html .= '<span class="fa fa-star"></span><span class="fa fa-star-o"></span><span class="fa fa-star-o"></span><span class="fa fa-star-o"></span><span class="fa fa-star-o"></span>';
+
+						} if(get_custom_field('client_rat')==2) {
+							$html .= '<span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star-o"></span><span class="fa fa-star-o"></span><span class="fa fa-star-o"></span>';
+							 
+						} if(get_custom_field('client_rat')==3) {
+							$html .= '<span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star-o"></span><span class="fa fa-star-o"></span>';
+
+						} if(get_custom_field('client_rat')==4) {
+							$html .= '<span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star-o"></span>';
+							 
+						} if(get_custom_field('client_rat')==5) {
+							$html .= '<span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span>';						 
+						} 
+					$html .= '</p>';
+				endif;
+
+
+
+	// Add the custom columns to the testimonial post type:
+		add_filter('manage_testimonial_posts_columns', 'add_new_testimonial_columns');
+		function add_new_testimonial_columns( $columns ) {
+			
+			 $columns = array(
+		      'cb' => $columns['cb'],
+		      'arimage' => __( 'Image' ),
+		      'title' => __( 'Author' ),
+		      'rating' => __( 'Rating', 'arttm' ),
+		      'companyName' => __( 'Company Name', 'arttm' ),
+		      'website' => __( 'Website Name', 'arttm' ),
+		      'arEmail' => __( 'Author Email', 'arttm' ),
+		    );
+			return $columns;
+
+		}
+
+		function ar_testimonial_custom_column( $column, $post_id ){
+			if( 'arimage' == $column ){
+				echo get_the_post_thumbnail( $post_id, 'ar-admin-thumb', array( 'class' => 'rounded-circle' ) );
+			}
+
+			if('rating' === $column ){
+				$rating = get_post_meta( $post_id, 'client_rat', true ); 
+				echo $rating;
+			}
+
+			if('companyName' === $column ){
+				$companyName = get_post_meta( $post_id, 'company_name', true ); 
+				if(! $companyName ){
+					_e(' N/A ');
+				}else {
+					echo $companyName;
+				}
+			}
+
+			if('website' === $column ){
+				$website = get_post_meta( $post_id, 'website_url', true ); 
+				echo $website;
+			}
+
+			if('arEmail' === $column ){
+				$arEmail = get_post_meta( $post_id, 'author_email', true ); 
+				echo $arEmail;
+			}
+		}
+		add_action('manage_testimonial_posts_custom_column', 'ar_testimonial_custom_column', 10, 2);
+
+
+		// Shortable Columns
+
+		function ar_testimonial_sortable_column ( $columns ){
+			$columns['arimage'] = 'the_post_thumbnail()';
+			$columns['rating'] = 'client_rat';
+			$columns['rating'] = 'client_rat';
+			$columns['companyName'] = 'company_name';
+			$columns['website'] = 'website_url';
+			$columns['arEmail'] = 'author_email';
+			return $columns;
+		}
+		add_filter('manage_edit-testimonial_sortable_columns', 'ar_testimonial_sortable_column');
+
+		add_action( 'pre_get_posts', 'artest_posts_orderby' );
+		function artest_posts_orderby( $query ) {
+		  if( ! is_admin() || ! $query->is_main_query() ) {
+		    return;
+		  }
+
+		  if ( 'client_rat' === $query->get( 'orderby') ) {
+		    $query->set( 'orderby', 'meta_value' );
+		    $query->set( 'meta_key', 'client_rat' );
+		    $query->set( 'meta_type', 'numeric' );
+		  }
+		}

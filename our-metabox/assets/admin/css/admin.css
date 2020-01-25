@@ -1,0 +1,27 @@
+.fields_c {
+    width: 15%;
+    float: left;
+}
+.input_c{
+    width: 85%;
+    float: left;
+}
+.float_c{
+    clear: both;
+}
+.button{
+    border: 0;
+}
+
+#upload_image_container {
+    width: 100%;
+}
+#upload_image_container img,
+#upload_images_container img {
+    max-width: 100%;
+    height: auto;
+    margin-top: 10px;
+}
+.gallery-image {
+    margin-right: 10px;
+}

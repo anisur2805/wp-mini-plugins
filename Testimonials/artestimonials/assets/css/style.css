@@ -1,0 +1,76 @@
+div#postexcerpt{clear: both;}
+.ar-test-block {
+    background: #f8f9fa;
+    padding: 10px 20px;
+    box-sizing: border-box;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 2px 0px #d2d2d2;
+    text-align: center;
+}
+.author_image {
+	max-width: 250px;
+	margin: 0 auto 20px; 
+}
+.author_image img {
+	max-width: 100%;
+	height: auto;
+	border-radius: 125px;
+    box-shadow: 0px 2px 6px #d93;
+}
+.ar-test-block h3{
+	font-size: 22px;
+	line-height: 30px;
+	margin-bottom: 10px;
+}
+.ar-test-block h4 {
+	font-size: 20px;
+	line-height: 25px;
+	margin-bottom: 10px;
+}
+.ar-test-block h3.art_email {
+    font-size: 16px;
+    line-height: 24px;
+    margin-bottom: 0;
+}
+.ar-test-block p.site{
+    margin-bottom: 5px;
+}
+
+.owl-carousel .owl-nav .owl-prev,
+  .owl-carousel .owl-nav .owl-next,
+  .owl-carousel .owl-dot {
+    font-family: 'fontAwesome'; 
+    transition: all .2s ease;
+
+}
+.owl-carousel .owl-nav .owl-prev:before{
+    content: "\f053";
+    margin-right:10px;
+}
+.owl-carousel .owl-nav .owl-next:after{
+    content: "\f054";
+    margin-right:10px;
+}
+
+.owl-prev {
+    width: 15px;
+    height: 100px;
+    position: absolute;
+    top: 40%;
+    margin-left: -20px;
+    display: block !important;
+    border:0px solid black;
+}
+
+.owl-next {
+    width: 15px;
+    height: 100px;
+    position: absolute;
+    top: 40%;
+    right: -25px;
+    display: block !important;
+    border:0px solid black;
+}
+.owl-prev i, .owl-next i {transform : scale(1,6); color: #ccc;}
+.ar-test-block p{font-size: 16px;}

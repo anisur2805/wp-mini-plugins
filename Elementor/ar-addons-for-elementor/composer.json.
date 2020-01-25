@@ -1,0 +1,21 @@
+{
+    "name": "ar/ar-addons-for-elementor",
+    "description": "All in one Elementor addons",
+    "type": "wordpress-plugin",
+    "license": "GPL-3.0",
+    "authors": [
+        {
+            "name": "MD Anisur Rahman",
+            "email": "anisur2805@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.6.0"
+    },
+    "autoload" : {
+        "psr-4" : {
+            "Pluginever\\AR\\": "includes/",
+            "Pluginever\\AR\\Widgets\\": "includes/widgets/"
+        }
+    }
+}
